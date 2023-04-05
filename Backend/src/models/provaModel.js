@@ -5,6 +5,11 @@ const getProvas = async () => {
 	return provas;
 };
 
+const getProva = async (id) => {
+	const [prova] = await connection.execute("SELECT * FROM provas WHERE id = ?", [id]);
+	return prova;
+};
+
 const createProva = async (prova) => {
 	const { nome, banca, linkEdital } = prova;
 	const dateUTC = new Date(Date.now()).toUTCString();
@@ -33,8 +38,15 @@ const updateProva = async (id, prova) => {
 	};
 };
 
+const deleteProva = async (id) => {
+	const [removedProva] = await connection.execute("DELETE FROM provas WHERE id = ?", [id]);
+	return removedProva;
+};
+
 module.exports = {
 	getProvas,
+	getProva,
 	createProva,
-	updateProva
+	updateProva,
+	deleteProva
 };

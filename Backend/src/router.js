@@ -7,6 +7,7 @@ const provaMiddleware = require("./middlewares/provaMiddleware");
 // const provaMiddleware = require("./m")
 
 router.get("/provas", provaController.getProvas);
+router.get("/provas/:id", provaController.getProva);
 router.post("/provas",
 	provaMiddleware.validateFieldName,
 	provaMiddleware.validateFieldBanca,
@@ -15,5 +16,6 @@ router.put("/provas/:id",
 	provaMiddleware.validateFieldName,
 	provaMiddleware.validateFieldBanca,
 	provaController.updateProva);
+router.delete("/provas/:id", provaController.deleteProva);
 
 module.exports = router;
