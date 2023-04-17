@@ -5,6 +5,7 @@ const router = express.Router();
 const provaController = require("./controllers/provaController");
 const provaMiddleware = require("./middlewares/provaMiddleware");
 const materialController = require("./controllers/materiaController");
+const materiaMiddleware = require("./middlewares/materiaMiddleware");
 
 router.get("/provas", provaController.getProvas);
 router.get("/provas/:id", provaController.getProva);
@@ -19,7 +20,11 @@ router.put("/provas/:id",
 router.delete("/provas/:id", provaController.deleteProva);
 
 router.get("/materiais", materialController.getMaterias);
-router.get("/materiais/:id", materialController.getMaterial);
-router.post("/materiais", materialController.createMaterial);
+router.get("/materiais/:id", materialController.getMateria);
+router.post("/materiais",
+	materiaMiddleware.validateMateriaField,
+	materialController.createMateria);
+router.put("/materiais/:id", materialController.updatedMateria);
+router.delete("/materiais/:id", materialController.deleteMateria);
 
 module.exports = router;

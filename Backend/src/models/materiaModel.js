@@ -5,21 +5,46 @@ const getMaterias = async () => {
 	return materia;
 };
 
-const getMaterial = async (id)  => {
+const getMateria = async (id)  => {
 	const [material] = await connection.execute(`SELECT * FROM materias WHERE id = ${id}`);
 	return material;
 };
 
-const createMaterial = async (material) => {
-	const { materialText } = material;
+const createMateria = async (materiaBody) => {
+	const { materia } = materiaBody;
 
-	const createdMaterial = await connection.execute("INSERT INTO materias(material) VALUES(?)", materialText);
-	return createdMaterial;
+	const query = "INSERT INTO materias(materia) values(?)";
+	const [createdMateria] = await connection.execute(query, [materia]);
+
+	return { 
+		message: "inserido com sucesso!",
+		insertId: createdMateria.insertId 
+	};
+};
+
+const updateMateria = async (id, materiaBody) => {
+	const { materia } = materiaBody;
+
+	const query = "UPDATE materias SET materia = ? WHERE id = ?";
+	const [updatedMateria] = await connection.execute(query, [materia, id]);
+
+	return {
+		message: "atualizado com sucesso",
+		insertId: updatedMateria.insertId
+	};
+
+};
+
+const deleteMateria = async (id) => {
+	const [removeMateria] = await connection.execute("DELETE FROM materias WHERE id = ?", [id]);
+	return removeMateria;
 
 };
 
 module.exports =  {
 	getMaterias,
-	getMaterial,
-	createMaterial
+	getMateria,
+	createMateria,
+	deleteMateria,
+	updateMateria
 };
