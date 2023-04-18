@@ -3,8 +3,9 @@ const express = require("express");
 const router = express.Router();
 
 const provaController = require("./controllers/provaController");
-const provaMiddleware = require("./middlewares/provaMiddleware");
 const materialController = require("./controllers/materiaController");
+const questaoController = require("./controllers/questaoController");
+const provaMiddleware = require("./middlewares/provaMiddleware");
 const materiaMiddleware = require("./middlewares/materiaMiddleware");
 
 router.get("/provas", provaController.getProvas);
@@ -26,5 +27,8 @@ router.post("/materiais",
 	materialController.createMateria);
 router.put("/materiais/:id", materialController.updatedMateria);
 router.delete("/materiais/:id", materialController.deleteMateria);
+
+router.get("/questoes", questaoController.getProvas);
+router.get("/questoes/:id", questaoController.getProva);
 
 module.exports = router;
